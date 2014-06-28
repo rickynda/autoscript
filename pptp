@@ -1,9 +1,11 @@
 ------
 ‪#‎debian‬
 apt-get -y install pptpd
+
 ‪#‎centos‬
 yum -y install pptpd
 -------
+
 ‪#‎ConfigServer‬
 cat > /etc/ppp/pptpd-options <<END
 name pptpd
@@ -19,19 +21,23 @@ nodefaultroute
 lock
 nobsdcomp
 END
+
 ‪#‎setting‬ up pptpd.conf
 echo "option /etc/ppp/pptpd-options" > /etc/pptpd.conf
 echo "logwtmp" >> /etc/pptpd.conf
 echo "localip ‪#‎ipserver‬" >> /etc/pptpd.conf
 echo "remoteip 10.1.0.1-100" >> /etc/pptpd.conf
+
 ‪#‎Forwarding‬ IPv4 and Enabling it on boot
 cat >> /etc/sysctl.conf <<END
 net.ipv4.ip_forward=1
 END
 --
 sysctl -p
+
 ‪#‎Updating‬ IPtables Routing and Enabling it on boot
 iptables -t nat -A POSTROUTING -j SNAT --to #ipserver
+
 ‪#‎saves‬ iptables routing rules and enables them on-boot
 iptables-save > /etc/iptables.conf
 --
@@ -41,11 +47,14 @@ iptables-restore < /etc/iptables.conf
 END
 ---
 chmod +x /etc/network/if-pre-up.d/iptables
+
 cat >> /etc/ppp/ip-up <<END
 ifconfig ppp0 mtu 1400
 END
+
 ‪#‎Restart‬ VPN
 /etc/init.d/pptpd restart
+
 ‪#‎add‬ user di
 /etc/ppp/chap-secrets
 --
