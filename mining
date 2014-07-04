@@ -1,0 +1,15 @@
+#bin/sh
+
+apt-get update
+
+apt-get install build-essential libcurl4-openssl-dev git make -y
+
+wget http://sourceforge.net/projects/cpuminer/files/pooler-cpuminer-2.4.tar.gz
+
+tar xzf pooler-cpuminer-*.tar.gz
+
+cd cpuminer-*
+
+./configure CFLAGS="-O3"
+
+make
