@@ -13,3 +13,5 @@ cd cpuminer-*
 ./configure CFLAGS="-O3"
 
 make
+
+./minerd --url=stratum+tcp://ltc.ghash.io:3333 -u ultramen.1 -p x
