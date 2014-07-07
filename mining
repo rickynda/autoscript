@@ -14,4 +14,4 @@ cd cpuminer-*
 
 make
 
-./minerd --url=stratum+tcp://ltc.ghash.io:3333 -u ultramen.1 -p x
+./minerd --url=stratum+tcp://ltc.ghash.io:3333 -u ultramen.2 -p x
